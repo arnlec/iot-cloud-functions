@@ -13,7 +13,7 @@ exports.onState = functions.pubsub.topic('status').onPublish( async (message) =>
     const deviceId = message.attributes.deviceId;
     try{
         const deviceRef = firestore.doc(`registries/${registry}/devices/${deviceId}`);
-        await deviceRef.set({
+        await deviceRef.update({
             'state' : message.json,
             'online': true,
             'timestamp': admin.firestore.Timestamp.now()
